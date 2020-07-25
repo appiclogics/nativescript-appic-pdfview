@@ -106,6 +106,7 @@ import {
       let default_page = parseInt(this.value_default_page);
       let that = this;
   
+      console.log('loading pdf src '+ src);
       if (!src || !this.android) {
         return Promise.reject("no parameters");
       }
