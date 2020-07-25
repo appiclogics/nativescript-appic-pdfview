@@ -181,5 +181,5 @@ function onButtonTap(args: EventData) {
 https://choosealicense.com/licenses/mit/
 
 ## Credit
-https://market.nativescript.org/plugins/nativescript-appic-pdfview
+https://market.nativescript.org/plugins/nativescript-pdfview-ng
 
