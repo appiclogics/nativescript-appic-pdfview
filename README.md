@@ -27,7 +27,7 @@ xmlns:ui="nativescript-appic-pdfview">
 OR
 
 ```js
-import { AppicPdfView } from 'nativescript-pdfview-ng';
+import { AppicPdfView } from 'nativescript-appic-pdfview';
 import { registerElement } from 'nativescript-angular';
 registerElement('AppicPdfView', () => AppicPdfView);
 ```
@@ -181,5 +181,5 @@ function onButtonTap(args: EventData) {
 https://choosealicense.com/licenses/mit/
 
 ## Credit
-https://market.nativescript.org/plugins/nativescript-pdfview-ng
+https://market.nativescript.org/plugins/nativescript-appic-pdfview
 

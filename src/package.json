@@ -52,5 +52,6 @@
 		"semver": "^5.6.0"
 	},
 	"dependencies": {},
-	"bootstrapper": "nativescript-plugin-seed"
+	"bootstrapper": "nativescript-plugin-seed",
+	"publishConfig": { "registry": "https://npm.pkg.github.com/" }
 }
