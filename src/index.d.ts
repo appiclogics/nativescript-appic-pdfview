@@ -1,26 +1,14 @@
 import { AppicPdfViewCommon, BookmarkCommon, ControllerRect  } from './appic-pdfview.common';
 export declare class AppicPdfView extends AppicPdfViewCommon {
-  loadPDF(src: string): Promise<any>;
-  goToPage(index: number): void;
-  goToFirstPage(): void;
-  goToLastPage(): void;
-  getBookmarks(): Bookmark[];
-  getBookmarkByIndexPath(indexes: number[]): Bookmark;
-  getBookmarksByLabel(label: string): BookmarkCommon[];
-  goToBookmark(bookmark: Bookmark): void;
-  showExternalControler(rect: ControllerRect): void;
+   // define your typings manually
+  // or..
+  // use take the ios or android .d.ts files and copy/paste them here
 
-  getAuthor(): string;
-  getTitle(): string;
-  getSubject(): string;
-  getCreationDate(): string;
-  getCreator(): string;
-  getPageCount(): number;
-}
+  public loadPDF(src: string): void;
 
-
-export declare class Bookmark extends BookmarkCommon {
-  children: BookmarkCommon[];
-  getTitle(): string;
-  getChildren(): Bookmark[];
+  public static loadEvent: string;
+  public static notifyOfEvent(
+    eventName: string,
+    pdfViewRef: WeakRef<PDFViewCommon>,
+  ): void;
 }
