@@ -1,4 +1,4 @@
-import { AppicPdfViewCommon, BookmarkCommon, ControllerRect  } from './appic-pdfview.common';
+import { AppicPdfViewCommon } from './appic-pdfview.common';
 export declare class AppicPdfView extends AppicPdfViewCommon {
    // define your typings manually
   // or..
@@ -9,6 +9,6 @@ export declare class AppicPdfView extends AppicPdfViewCommon {
   public static loadEvent: string;
   public static notifyOfEvent(
     eventName: string,
-    pdfViewRef: WeakRef<PDFViewCommon>,
+    pdfViewRef: WeakRef<AppicPdfViewCommon>,
   ): void;
 }
