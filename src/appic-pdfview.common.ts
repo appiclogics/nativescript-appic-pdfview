@@ -1,37 +1,133 @@
 import { Property, View } from "tns-core-modules/ui/core/view";
 
 export abstract class AppicPdfViewCommon extends View {
-  public static loadEvent = 'load';
-
-  /**
-   * Render annotations (such as comments, colors or forms) on Android
-   */
-  public enableAnnotationRendering: boolean;
-
-  /**
-   * the source url of the PDF to show
-   */
   public src: string;
+  public static loadEvent = "load";
+  public static errorEvent = "error";
+
+  constructor() {
+    super();
+  }
+
+  abstract goToPage(index: number): void;
+  abstract goToFirstPage(): void;
+  abstract goToLastPage(): void;
+  abstract goToBookmark(bookmark: BookmarkCommon): void;
+  abstract getBookmarks(): BookmarkCommon[];
+  abstract getAuthor(): string;
+  abstract getTitle(): string;
+  abstract getSubject(): string;
+  abstract getCreationDate(): string;
+  abstract getCreator(): string;
+
+  abstract getPageCount(): number;
+  abstract loadPDF(src: string): Promise<any>;
+  abstract showExternalControler(rect: ControllerRect): void;
+
+  public goToBookmarkByPath(indexes: number[]): boolean {
+    let item = this.getBookmarkByIndexPath(indexes);
+    if (item) {
+      this.goToBookmark(item);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public goToBookmarkByLabel(label: string): boolean {
+    let items = this.getBookmarksByLabel(label);
+    if (items.length > 0) {
+      this.goToBookmark(items[0]);
+      return true;
+    }
+    return false;
+  }
+
+  public getBookmarksByLabel(label: string): BookmarkCommon[] {
+    let retval = this.getBookmarksByLabelInternal(label, this.getBookmarks());
+    if (!retval) {
+      console.error("could not find label:", label);
+    }
+    return retval;
+  }
+
+  private getBookmarksByLabelInternal(
+    label: string,
+    list: BookmarkCommon[]
+  ): BookmarkCommon[] {
+    let result = [];
+    for (let i = 0; i < list.length; i++) {
+      let item = list[i];
+      if ("" + item.getTitle() === label) {
+        result.push(item);
+      } else {
+        let retval = this.getBookmarksByLabelInternal(
+          label,
+          item.getChildren()
+        );
+        if (retval) {
+          result = result.concat(retval);
+        }
+      }
+    }
+    return result;
+  }
+
+  public getBookmarkByIndexPath(indexes: number[]): BookmarkCommon {
+    let current: BookmarkCommon = null;
+    let list = this.getBookmarks();
+    while (indexes.length > 0) {
+      let indexCurrent = indexes.shift();
+      if (indexCurrent >= 0 && indexCurrent < list.length) {
+        current = list[indexCurrent];
+        list = current.getChildren();
+      } else {
+        return null;
+      }
+    }
+    return current;
+  }
 
   public static notifyOfEvent(
     eventName: string,
-    pdfViewRef: WeakRef<AppicPdfViewCommon>,
+    pdfViewRef: WeakRef<AppicPdfViewCommon>
   ) {
     const viewer = pdfViewRef.get();
-
     if (viewer) {
       viewer.notify({ eventName, object: viewer });
     }
   }
 }
 
-export const enableAnnotationRenderingProperty = new Property<AppicPdfViewCommon, boolean>({
-  name: 'enableAnnotationRendering',
-  defaultValue: false,
-});
-enableAnnotationRenderingProperty.register(AppicPdfViewCommon);
+export abstract class BookmarkCommon {
+  children: BookmarkCommon[];
+  abstract getTitle(): string;
+  abstract getChildren(): BookmarkCommon[];
+}
 
 export const srcProperty = new Property<AppicPdfViewCommon, string>({
-  name: 'src',
+  name: "src"
 });
 srcProperty.register(AppicPdfViewCommon);
+
+export const defaultpageProperty = new Property<AppicPdfViewCommon, string>({
+  name: "defaultpage"
+});
+defaultpageProperty.register(AppicPdfViewCommon);
+
+export const bookmarkPathProperty = new Property<AppicPdfViewCommon, string>({
+  name: "bookmarkpath"
+});
+bookmarkPathProperty.register(AppicPdfViewCommon);
+
+export const bookmarkLabelProperty = new Property<AppicPdfViewCommon, string>({
+  name: "bookmarklabel"
+});
+bookmarkLabelProperty.register(AppicPdfViewCommon);
+
+export class ControllerRect {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}

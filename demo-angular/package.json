@@ -23,6 +23,7 @@
     "@nativescript/theme": "~2.3.0",
     "nativescript-angular": "~8.21.0",
     "nativescript-appic-pdfview": "file:../src",
+    "nativescript-downloader": "^2.1.5",
     "reflect-metadata": "~0.1.12",
     "rxjs": "^6.4.0",
     "tns-core-modules": "~6.5.0",

@@ -3,6 +3,14 @@ import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import {
+    android,
+    AndroidApplication,
+    AndroidActivityBundleEventData,
+    AndroidActivityEventData,
+    AndroidActivityResultEventData,
+    AndroidActivityBackPressedEventData,
+} from "tns-core-modules/application";
 
 @NgModule({
     bootstrap: [
@@ -19,4 +27,6 @@ import { AppComponent } from "./app.component";
         NO_ERRORS_SCHEMA
     ]
 })
+
+
 export class AppModule { }
