@@ -9,7 +9,7 @@ import {
     ControllerRect
   } from "./appic-pdfview.common";
   import * as fs from "tns-core-modules/file-system";
-  import pdfviewer = com.github.barteksc.pdfviewer;
+  import pdfviewer = com.github.appiclogics.pdfviewer;
   import * as http from "tns-core-modules/http";
   import { knownFolders } from "tns-core-modules/file-system/file-system";
   
